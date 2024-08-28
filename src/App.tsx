@@ -6,7 +6,6 @@ import NewTodo from "./components/NewTodo/NewTodo";
 import { Todo } from "./todo.model";
 
 function App() {
-  // const todos = [{ id: "1", text: "Text is here" }];
   const [todos, setTodos] = useState<Todo[]>([]);
 
   const todoAddHandler = (text: string) => {
@@ -22,10 +21,20 @@ function App() {
     });
   };
 
+  const editTodoHandler = (todoId: string, text: string) => {
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) => (todo.id === todoId ? { ...todo, text } : todo))
+    );
+  };
+
   return (
     <div className="App">
       <NewTodo onAddTodo={todoAddHandler} />
-      <ToDoList todos={todos} onDelete={todoDeleteHandler} />
+      <ToDoList
+        todos={todos}
+        onDelete={todoDeleteHandler}
+        onEdit={editTodoHandler}
+      />
     </div>
   );
 }

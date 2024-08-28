@@ -6,13 +6,19 @@ import ToDoItem from "../ToDoItem/ToDoItem";
 interface ToDoListProps {
   todos: Todo[];
   onDelete: (todoId: string) => void;
+  onEdit: (todoId: string, text: string) => void;
 }
 
-const ToDoList: React.FC<ToDoListProps> = ({ todos, onDelete }) => {
+const ToDoList: React.FC<ToDoListProps> = ({ todos, onDelete, onEdit }) => {
   return (
     <ul className={s.ul}>
       {todos.map((todo) => (
-        <ToDoItem todo={todo} onDelete={onDelete} />
+        <ToDoItem
+          key={todo.id}
+          todo={todo}
+          onDelete={onDelete}
+          onEdit={onEdit}
+        />
       ))}
     </ul>
   );

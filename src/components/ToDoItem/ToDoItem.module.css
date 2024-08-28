@@ -25,3 +25,9 @@
   background: #6a0a77;
   border-color: #6a0a77;
 }
+
+.btn_wrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}

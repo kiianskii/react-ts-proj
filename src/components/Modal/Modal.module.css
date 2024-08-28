@@ -1,0 +1,45 @@
+.wrapper {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+  z-index: 10088;
+}
+.content {
+  position: relative;
+  background-color: white;
+  padding: 24px;
+  overflow: hidden;
+  min-width: 300px;
+  max-width: 1000px;
+  border-radius: 8px;
+  z-index: 1001;
+  h1 {
+    font-size: 2rem;
+  }
+}
+.closeBtn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  width: 18px;
+  height: 18px;
+}
+
+.icon_close {
+  stroke: black;
+}
+.title {
+  color: black;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 27px;
+  letter-spacing: -2%;
+}
