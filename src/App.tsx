@@ -4,6 +4,8 @@ import "./App.css";
 import ToDoList from "./components/ToDoList/ToDoList";
 import NewTodo from "./components/NewTodo/NewTodo";
 import { Todo } from "./todo.model";
+import RegisterPage from "./components/RegisterPage/RegisterPage";
+import LoginPage from "./components/LoginPage/LoginPage";
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -35,6 +37,8 @@ function App() {
         onDelete={todoDeleteHandler}
         onEdit={editTodoHandler}
       />
+      <RegisterPage />
+      <LoginPage />
     </div>
   );
 }
