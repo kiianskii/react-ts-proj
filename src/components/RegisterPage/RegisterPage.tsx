@@ -2,9 +2,22 @@ import React from "react";
 import s from "./RegisterPage.module.css";
 
 const RegisterPage = () => {
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Submit login");
+
+    const form = e.currentTarget;
+
+    const formData = new FormData(form);
+
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+    const username = formData.get("username") as string;
+
+    console.log("Email:", email);
+    console.log("Password:", password);
+    console.log("Username:", username);
+
+    form.reset();
   };
 
   return (
@@ -14,7 +27,12 @@ const RegisterPage = () => {
       <form onSubmit={onSubmit}>
         <label className={s.label}>
           <span>Username</span>
-          <input className={s.input} type="text" name="email" id="email" />
+          <input
+            className={s.input}
+            type="text"
+            name="username"
+            id="username"
+          />
         </label>
         <label className={s.label}>
           <span>Email</span>
@@ -22,7 +40,12 @@ const RegisterPage = () => {
         </label>
         <label className={s.label}>
           <span>Password</span>
-          <input className={s.input} type="text" name="email" id="email" />
+          <input
+            className={s.input}
+            type="password"
+            name="password"
+            id="password"
+          />
         </label>
         <button className={s.button} type="submit">
           Sign up
