@@ -3,9 +3,11 @@ import s from "./RegisterPage.module.css";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
 import { registerThunk } from "../../redux/auth/operations";
+import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -50,9 +52,18 @@ const RegisterPage = () => {
             id="password"
           />
         </label>
-        <button className={s.button} type="submit">
-          Sign up
-        </button>
+        <div className={s.btn_wrapper}>
+          <button className={s.button} type="submit">
+            Sign up
+          </button>
+          <button
+            className={s.nav_button}
+            type="button"
+            onClick={() => navigate("/login")}
+          >
+            Sign in
+          </button>
+        </div>
       </form>
     </section>
   );

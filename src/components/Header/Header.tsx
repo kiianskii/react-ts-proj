@@ -4,6 +4,7 @@ import { selectIsLoggedIn, selectUser } from "../../redux/auth/slice";
 import { useDispatch } from "react-redux";
 import { logoutThunk } from "../../redux/auth/operations";
 import { AppDispatch } from "../../redux/store";
+import s from "./Header.module.css";
 
 const Header = () => {
   const isLogged = useSelector(selectIsLoggedIn);
@@ -11,13 +12,20 @@ const Header = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   return (
-    <div>
-      <h1>Task manager</h1>
+    <div className={s.header}>
+      <h1 className={s.title}>Task manager</h1>
       {isLogged && (
-        <ul>
-          <li>{user.username}</li>
+        <ul className={s.user_bar}>
+          <li className={s.title}>
+            <h2>{user.username}</h2>
+          </li>
           <li>
-            <button onClick={() => dispatch(logoutThunk())}>Log out</button>
+            <button
+              className={s.button}
+              onClick={() => dispatch(logoutThunk())}
+            >
+              Log out
+            </button>
           </li>
         </ul>
       )}

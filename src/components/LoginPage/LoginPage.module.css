@@ -7,7 +7,7 @@
   border: 1px solid #50005a;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   border-radius: 16px;
-  margin: 0 auto;
+  margin: 20px auto;
   width: 250px;
 }
 
@@ -45,6 +45,7 @@
   padding: 0.5rem 1.5rem;
   cursor: pointer;
   border-radius: 8px;
+  transition: all ease-in-out 0.2s;
 }
 
 .button:focus {
@@ -55,4 +56,30 @@
 .button:active {
   background: #6a0a77;
   border-color: #6a0a77;
+}
+
+.nav_button {
+  background: #ffffff;
+  border: 1px solid #50005a;
+  color: black;
+  padding: 0.5rem 1.5rem;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all ease-in-out 0.2s;
+}
+.nav_button:focus {
+  outline: none;
+}
+
+.nav_button:hover,
+.nav_button:active {
+  background: #6a0a77;
+  border-color: #6a0a77;
+  color: white;
+}
+
+.btn_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
