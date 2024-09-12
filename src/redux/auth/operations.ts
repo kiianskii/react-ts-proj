@@ -39,7 +39,7 @@ type refreshRes = {
   email: string;
 };
 
-axios.defaults.baseURL = "http://localhost:3000/";
+axios.defaults.baseURL = "http://localhost:3000/api/";
 
 export const setToken = (token: string) => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;

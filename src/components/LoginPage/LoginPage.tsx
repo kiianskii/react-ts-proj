@@ -1,7 +1,12 @@
 import React from "react";
 import s from "./LoginPage.module.css";
+import { useDispatch } from "react-redux";
+import { loginThunk } from "../../redux/auth/operations";
+import { AppDispatch } from "../../redux/store";
 
 const LoginPage = () => {
+  const dispatch = useDispatch<AppDispatch>();
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -11,8 +16,7 @@ const LoginPage = () => {
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
 
-    console.log("Email:", email);
-    console.log("Password:", password);
+    dispatch(loginThunk({ email, password }));
 
     form.reset();
   };
@@ -24,7 +28,7 @@ const LoginPage = () => {
       <form onSubmit={onSubmit}>
         <label className={s.label}>
           <span>Email</span>
-          <input className={s.input} type="text" name="email" id="email" />
+          <input className={s.input} type="email" name="email" id="email" />
         </label>
         <label className={s.label}>
           <span>Password</span>

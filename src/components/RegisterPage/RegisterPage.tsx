@@ -1,7 +1,12 @@
 import React from "react";
 import s from "./RegisterPage.module.css";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../redux/store";
+import { registerThunk } from "../../redux/auth/operations";
 
 const RegisterPage = () => {
+  const dispatch = useDispatch<AppDispatch>();
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -13,9 +18,7 @@ const RegisterPage = () => {
     const password = formData.get("password") as string;
     const username = formData.get("username") as string;
 
-    console.log("Email:", email);
-    console.log("Password:", password);
-    console.log("Username:", username);
+    dispatch(registerThunk({ email, password, username }));
 
     form.reset();
   };
