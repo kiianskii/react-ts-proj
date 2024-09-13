@@ -2,18 +2,18 @@ import React, { useRef } from "react";
 import s from "./EditForm.module.css";
 
 interface onEditProps {
-  id: string;
-  onEdit: (id: string, text: string) => void;
+  _id: string;
+  onEdit: (_id: string, text: string) => void;
   closeModal: () => void;
 }
 
-const EditForm: React.FC<onEditProps> = ({ id, onEdit, closeModal }) => {
+const EditForm: React.FC<onEditProps> = ({ _id, onEdit, closeModal }) => {
   const editInputRef = useRef<HTMLInputElement>(null);
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const enteredText = editInputRef.current!.value;
 
-    onEdit(id, enteredText);
+    onEdit(_id, enteredText);
 
     editInputRef.current!.value = "";
     closeModal();

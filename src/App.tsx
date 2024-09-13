@@ -15,6 +15,7 @@ import { RestrictedRoute } from "./routes/RestrictedRoute";
 import { PrivateRoute } from "./routes/PrivateRoute";
 import TodoPage from "./pages/TodoPage/TodoPage";
 import Layout from "./pages/Layout/Layout";
+import { fetchTodosThunk } from "./redux/todo/operations";
 
 function App() {
   const isRefreshing = useSelector(selectIsRefreshing);
@@ -22,6 +23,7 @@ function App() {
 
   useEffect(() => {
     dispatch(refreshThunk());
+    dispatch(fetchTodosThunk());
   }, [dispatch]);
 
   return isRefreshing ? (

@@ -1,43 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { RootState } from "../store";
-
-interface User {
-  data: {
-    token: string;
-    user: {
-      username: string;
-      email: string;
-    };
-  };
-}
-interface AsyncThunkConfig {
-  state: RootState;
-  rejectValue: string;
-}
-
-interface Data {
-  res: {
-    username: string;
-    email: string;
-  };
-}
-
-type regCredentials = {
-  username: string;
-  email: string;
-  password: string;
-};
-
-type logCredentials = {
-  email: string;
-  password: string;
-};
-
-type refreshRes = {
-  username: string;
-  email: string;
-};
+import {
+  AsyncThunkConfig,
+  Data,
+  logCredentials,
+  refreshRes,
+  regCredentials,
+  User,
+} from "../../helpers/customTypes";
 
 axios.defaults.baseURL = "http://localhost:3000/api/";
 
