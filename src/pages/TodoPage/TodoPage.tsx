@@ -14,8 +14,6 @@ import {
 } from "../../redux/todo/operations";
 
 const TodoPage = () => {
-  // const [todos, setTodos] = useState<Todo[]>([]);
-
   const todos = useSelector(selectTodos);
   const dispatch = useDispatch<AppDispatch>();
 

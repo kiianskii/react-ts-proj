@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 type Todo = {
   text: string;
@@ -8,6 +9,19 @@ type Todo = {
 type UpdateTodo = {
   text: string;
   _id: string;
+};
+
+const msgOptions = {
+  icon: "👏",
+  style: {
+    border: "1px solid #713200",
+    padding: "16px",
+    color: "#713200",
+  },
+  iconTheme: {
+    primary: "#713200",
+    secondary: "#FFFAEE",
+  },
 };
 
 export const fetchTodosThunk = createAsyncThunk(
@@ -30,7 +44,7 @@ export const addTodoThunk = createAsyncThunk(
   async (todo: Todo, thunkAPI) => {
     try {
       const { data } = await axios.post("todos", todo);
-      //   toast("You have succesfully added new contact", msgOptions);
+      toast("You have succesfully added new todo", msgOptions);
       return data;
     } catch (error) {
       if (axios.isAxiosError(error) && error.message) {
@@ -48,7 +62,7 @@ export const updateTodoThunk = createAsyncThunk(
       const { data } = await axios.patch(`todos/${todo._id}`, {
         text: todo.text,
       });
-      //   toast("You have succesfully added new contact", msgOptions);
+      toast("You have succesfully updated new todo", msgOptions);
       return data;
     } catch (error) {
       if (axios.isAxiosError(error) && error.message) {
@@ -64,7 +78,7 @@ export const deleteTodoThunk = createAsyncThunk(
   async (_id: string, thunkAPI) => {
     try {
       const { data } = await axios.delete(`todos/${_id}`);
-      //   toast("You have succesfully deleted contact", msgOptions);
+      toast("You have succesfully deleted todo", msgOptions);
       return data.message;
     } catch (error) {
       if (axios.isAxiosError(error) && error.message) {

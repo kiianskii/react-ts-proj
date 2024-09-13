@@ -14,6 +14,7 @@ import {
 import storage from "redux-persist/lib/storage";
 import { authReducer } from "./auth/slice";
 import { todosReducer } from "./todo/slice";
+import { loaderReducer } from "./loader/loaderSlice";
 
 const authPersistConfig = {
   key: "auth",
@@ -28,6 +29,7 @@ export const store = configureStore({
   reducer: {
     auth: persistedReducer,
     todos: todosReducer,
+    loader: loaderReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

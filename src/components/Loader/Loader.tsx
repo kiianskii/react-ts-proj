@@ -1,21 +1,20 @@
-import { Comment } from "react-loader-spinner";
+import s from "./Loader.module.css";
+import { DNA } from "react-loader-spinner";
 
-function Loader() {
+const Loader = () => {
   return (
-    <div className="loader-box">
-      {" "}
-      <Comment
+    <div className={s.loader}>
+      (
+      <DNA
         visible={true}
-        height="160"
-        width="160"
-        ariaLabel="comment-loading"
+        height="80"
+        width="80"
+        ariaLabel="dna-loading"
         wrapperStyle={{}}
-        wrapperClass="comment-wrapper"
-        color="#fff"
-        backgroundColor="#323232d6"
+        wrapperClass="dna-wrapper"
       />
+      )
     </div>
   );
-}
-
+};
 export default Loader;

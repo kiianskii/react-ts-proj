@@ -4,12 +4,26 @@ import { useDispatch } from "react-redux";
 import { loginThunk } from "../../redux/auth/operations";
 import { AppDispatch } from "../../redux/store";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+
+const msgOptions = {
+  icon: "😞",
+  style: {
+    border: "1px solid #713200",
+    padding: "16px",
+    color: "#713200",
+  },
+  iconTheme: {
+    primary: "#713200",
+    secondary: "#FFFAEE",
+  },
+};
 
 const LoginPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const form = e.currentTarget;
@@ -18,9 +32,18 @@ const LoginPage = () => {
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
 
-    dispatch(loginThunk({ email, password }));
+    try {
+      const resultAction = await dispatch(loginThunk({ email, password }));
 
-    form.reset();
+      if (!loginThunk.fulfilled.match(resultAction)) {
+        toast("Something went wrong, try again...", msgOptions);
+      } else {
+        form.reset();
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      toast("Something went wrong, try again...", msgOptions);
+    }
   };
 
   return (

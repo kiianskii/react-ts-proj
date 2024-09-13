@@ -2,14 +2,28 @@ import React from "react";
 import s from "./RegisterPage.module.css";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
-import { registerThunk } from "../../redux/auth/operations";
+import { loginThunk, registerThunk } from "../../redux/auth/operations";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+
+const msgOptions = {
+  icon: "😞",
+  style: {
+    border: "1px solid #713200",
+    padding: "16px",
+    color: "#713200",
+  },
+  iconTheme: {
+    primary: "#713200",
+    secondary: "#FFFAEE",
+  },
+};
 
 const RegisterPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const form = e.currentTarget;
@@ -21,6 +35,20 @@ const RegisterPage = () => {
     const username = formData.get("username") as string;
 
     dispatch(registerThunk({ email, password, username }));
+
+    try {
+      const resultAction = await dispatch(
+        registerThunk({ email, password, username })
+      );
+      if (registerThunk.fulfilled.match(resultAction)) {
+        await dispatch(loginThunk({ email, password }));
+        navigate("/");
+      } else {
+        toast("Something went wrong, try again...", msgOptions);
+      }
+    } catch (error) {
+      toast("Something went wrong, try again...", msgOptions);
+    }
 
     form.reset();
   };

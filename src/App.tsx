@@ -7,7 +7,7 @@ import LoginPage from "./components/LoginPage/LoginPage";
 import { Route, Routes } from "react-router-dom";
 import Loader from "./components/Loader/Loader";
 import { useSelector } from "react-redux";
-import { selectIsRefreshing } from "./redux/auth/slice";
+import { selectIsLoggedIn, selectIsRefreshing } from "./redux/auth/slice";
 import { AppDispatch } from "./redux/store";
 import { useDispatch } from "react-redux";
 import { refreshThunk } from "./redux/auth/operations";
@@ -16,20 +16,24 @@ import { PrivateRoute } from "./routes/PrivateRoute";
 import TodoPage from "./pages/TodoPage/TodoPage";
 import Layout from "./pages/Layout/Layout";
 import { fetchTodosThunk } from "./redux/todo/operations";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const isRefreshing = useSelector(selectIsRefreshing);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     dispatch(refreshThunk());
-    dispatch(fetchTodosThunk());
-  }, [dispatch]);
+    if (isLoggedIn) {
+      dispatch(fetchTodosThunk());
+    }
+  }, [dispatch, isLoggedIn]);
 
   return isRefreshing ? (
     <Loader />
   ) : (
-    <Suspense fallback={null}>
+    <Suspense fallback={<Loader />}>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route
@@ -49,6 +53,7 @@ function App() {
           />
         </Route>
       </Routes>
+      <Toaster />
     </Suspense>
   );
 }

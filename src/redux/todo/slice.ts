@@ -1,4 +1,4 @@
-import { createSlice, isAnyOf } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { logoutThunk } from "../auth/operations";
 import {
   addTodoThunk,
@@ -14,12 +14,10 @@ interface Todo {
 
 interface TodoState {
   todos: Todo[];
-  isLoading: boolean;
 }
 
 const initialState: TodoState = {
   todos: [],
-  isLoading: false,
 };
 
 const sliceTodos = createSlice({
@@ -28,7 +26,6 @@ const sliceTodos = createSlice({
   reducers: {},
   selectors: {
     selectTodos: (state) => state.todos,
-    selectIsLoading: (state) => state.isLoading,
   },
 
   extraReducers: (builder) => {
@@ -49,41 +46,10 @@ const sliceTodos = createSlice({
         state.todos = state.todos.map((item) =>
           item._id === payload._id ? { ...item, text: payload.text } : item
         );
-      })
-
-      .addMatcher(
-        isAnyOf(
-          fetchTodosThunk.fulfilled,
-          addTodoThunk.fulfilled,
-          deleteTodoThunk.fulfilled
-        ),
-        (state) => {
-          state.isLoading = false;
-        }
-      )
-      .addMatcher(
-        isAnyOf(
-          fetchTodosThunk.pending,
-          addTodoThunk.pending,
-          deleteTodoThunk.pending
-        ),
-        (state) => {
-          state.isLoading = true;
-        }
-      )
-      .addMatcher(
-        isAnyOf(
-          fetchTodosThunk.rejected,
-          addTodoThunk.rejected,
-          deleteTodoThunk.rejected
-        ),
-        (state) => {
-          state.isLoading = false;
-        }
-      );
+      });
   },
 });
 
 export const todosReducer = sliceTodos.reducer;
 
-export const { selectTodos, selectIsLoading } = sliceTodos.selectors;
+export const { selectTodos } = sliceTodos.selectors;
